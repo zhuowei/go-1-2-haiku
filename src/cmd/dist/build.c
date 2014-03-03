@@ -1074,6 +1074,12 @@ install(char *dir)
 		vcopy(&link, lib.p, lib.len);
 		if(!streq(gohostos, "plan9") && !streq(gohostos, "haiku"))
 			vadd(&link, "-lm");
+		
+		// Haiku needs -lbsd for wait4().
+		// TODO(bga): Revisit this as it is probably overkill to link against
+		// -lbsd just for wait4().
+		if(streq(gohostos, "haiku"))
+			vadd(&link, "-lbsd");
 	}
 
 	// Remove target before writing it.
