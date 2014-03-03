@@ -692,6 +692,12 @@ main(int argc, char **argv)
 	gohostos = "netbsd";
 #elif defined(__HAIKU__)
 	gohostos = "haiku";
+	// Under a Haiku PC, uname -m will always print BePC.
+	run(&b, nil, 0, "uname", "-p", nil);
+	if(contains(bstr(&b), "x86_64"))
+		gohostarch = "amd64";
+	if(contains(bstr(&b), "x86"))
+		gohostarch = "386";	 
 #else
 	fatal("unknown operating system");
 #endif
@@ -701,7 +707,7 @@ main(int argc, char **argv)
 			fatal("uname: %s", strerror(errno));
 		if(contains(u.machine, "x86_64") || contains(u.machine, "amd64"))
 			gohostarch = "amd64";
-		else if(hassuffix(u.machine, "86") || contains(u.machine, "BePC"))
+		else if(hassuffix(u.machine, "86"))
 			gohostarch = "386";
 		else if(contains(u.machine, "arm"))
 			gohostarch = "arm";
