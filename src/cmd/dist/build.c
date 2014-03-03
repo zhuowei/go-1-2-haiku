@@ -1072,7 +1072,7 @@ install(char *dir)
 	if(!islib && !isgo) {
 		// C binaries need the libraries explicitly, and -lm.
 		vcopy(&link, lib.p, lib.len);
-		if(!streq(gohostos, "plan9"))
+		if(!streq(gohostos, "plan9") && !streq(gohostos, "haiku"))
 			vadd(&link, "-lm");
 	}
 
