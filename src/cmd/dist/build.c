@@ -56,6 +56,7 @@ static char *okgoos[] = {
 	"openbsd",
 	"plan9",
 	"windows",
+	"haiku",
 };
 
 static void rmworkdir(void);

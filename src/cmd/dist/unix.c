@@ -465,7 +465,11 @@ xworkdir(void)
 
 	xgetenv(&b, "TMPDIR");
 	if(b.len == 0)
+#if defined(__HAIKU__)
+		bwritestr(&b, "/tmp");
+#else
 		bwritestr(&b, "/var/tmp");
+#endif
 	if(b.p[b.len-1] != '/')
 		bwrite(&b, "/", 1);
 	bwritestr(&b, "go-cbuild-XXXXXX");
@@ -686,6 +690,8 @@ main(int argc, char **argv)
 	gohostos = "openbsd";
 #elif defined(__NetBSD__)
 	gohostos = "netbsd";
+#elif defined(__HAIKU__)
+	gohostos = "haiku";
 #else
 	fatal("unknown operating system");
 #endif
@@ -695,7 +701,7 @@ main(int argc, char **argv)
 			fatal("uname: %s", strerror(errno));
 		if(contains(u.machine, "x86_64") || contains(u.machine, "amd64"))
 			gohostarch = "amd64";
-		else if(hassuffix(u.machine, "86"))
+		else if(hassuffix(u.machine, "86") || contains(u.machine, "BePC"))
 			gohostarch = "386";
 		else if(contains(u.machine, "arm"))
 			gohostarch = "arm";
