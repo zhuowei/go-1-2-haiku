@@ -848,6 +848,7 @@ asmb(void)
 	case Hnetbsd:
 	case Hopenbsd:
 	case Hdragonfly:
+	case Hhaiku:
 		asmbelf(symo);
 		break;
 	case Hwindows:

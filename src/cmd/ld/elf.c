@@ -1192,6 +1192,10 @@ asmbelf(vlong symo)
 			case Hdragonfly:
 				interpreter = dragonflydynld;
 				break;
+			case Hhaiku:
+				/* FIXME FIXME FIXME */
+				interpreter = linuxdynld;
+				break;
 			}
 		}
 		resoff -= elfinterp(sh, startva, resoff, interpreter);
