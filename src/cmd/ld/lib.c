@@ -372,7 +372,7 @@ loadlib(void)
 	gmsym->type = STLSBSS;
 	gmsym->size = 2*PtrSize;
 	gmsym->hide = 1;
-	if(linkmode == LinkExternal && iself && HEADTYPE != Hopenbsd)
+	if(linkmode == LinkExternal && iself && HEADTYPE != Hopenbsd && HEADTYPE != Hhaiku)
 		gmsym->reachable = 1;
 	else
 		gmsym->reachable = 0;
@@ -735,7 +735,7 @@ hostlink(void)
 		argv[argc++] = smprint("-Wl,-rpath,%s", rpath);
 
 	// Force global symbols to be exported for dlopen, etc.
-	if(iself)
+	if(iself && HEADTYPE != Hhaiku)
 		argv[argc++] = "-rdynamic";
 
 	// already wrote main object file

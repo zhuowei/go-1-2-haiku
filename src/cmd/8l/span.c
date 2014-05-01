@@ -689,7 +689,7 @@ putrelv:
 		r = addrel(cursym);
 		*r = rel;
 		r->off = curp->pc + andptr - and;
-	} else if(iself && linkmode == LinkExternal && istls(a) && HEADTYPE != Hopenbsd) {
+	} else if(iself && linkmode == LinkExternal && istls(a) && HEADTYPE != Hopenbsd && HEADTYPE != Hhaiku) {
 		Reloc *r;
 		Sym *s;
 
