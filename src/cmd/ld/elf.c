@@ -893,7 +893,7 @@ doelf(void)
 	// for dynamic internal linker or external linking, so that various
 	// binutils could correctly calculate PT_TLS size.
 	// see http://golang.org/issue/5200.
-	if(HEADTYPE != Hopenbsd)
+	if(HEADTYPE != Hopenbsd && HEADTYPE != Hhaiku)
 	if(!debug['d'] || linkmode == LinkExternal)
 		addstring(shstrtab, ".tbss");
 	if(HEADTYPE == Hnetbsd)
@@ -1373,7 +1373,7 @@ asmbelf(vlong symo)
 		// Do not emit PT_TLS for OpenBSD since ld.so(1) does
 		// not currently support it. This is handled
 		// appropriately in runtime/cgo.
-		if(tlsoffset != 0 && HEADTYPE != Hopenbsd) {
+		if(tlsoffset != 0 && HEADTYPE != Hopenbsd && HEADTYPE != Hhaiku) {
 			ph = newElfPhdr();
 			ph->type = PT_TLS;
 			ph->flags = PF_R;
@@ -1430,7 +1430,7 @@ elfobj:
 
 	// generate .tbss section for dynamic internal linking (except for OpenBSD)
 	// external linking generates .tbss in data.c
-	if(linkmode == LinkInternal && !debug['d'] && HEADTYPE != Hopenbsd) {
+	if(linkmode == LinkInternal && !debug['d'] && HEADTYPE != Hopenbsd && HEADTYPE != Hhaiku) {
 		sh = elfshname(".tbss");
 		sh->type = SHT_NOBITS;
 		sh->addralign = PtrSize;
