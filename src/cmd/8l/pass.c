@@ -270,7 +270,7 @@ patch(void)
 	
 	for(cursym = textp; cursym != nil; cursym = cursym->next) {
 		for(p = cursym->text; p != P; p = p->link) {
-			if(HEADTYPE == Hwindows) {
+			if(HEADTYPE == Hwindows || HEADTYPE == Hhaiku) {
 				// Convert
 				//   op	  n(GS), reg
 				// to
@@ -594,6 +594,7 @@ load_g_cx(Prog *p)
 {
 	switch(HEADTYPE) {
 	case Hwindows:
+	case Hhaiku: /* FIXME */
 		p->as = AMOVL;
 		p->from.type = D_INDIR+D_FS;
 		p->from.offset = 0x14;

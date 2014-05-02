@@ -375,9 +375,6 @@ runtime·usleep(uint32 a) {
 void runtime·raise(int32 number) {
 }
 
-void runtime·setldt() {
-}
-
 void runtime·osyield() {
 }
 

@@ -173,6 +173,11 @@ static struct {
 		"#define	g(r)	-8(r)(GS*1)\n"
 		"#define	m(r)	-4(r)(GS*1)\n"
 	},
+	{"386", "haiku",
+		"#define	get_tls(r)	MOVL 0x14(FS), r\n"
+		"#define	g(r)	0(r)\n"
+		"#define	m(r)	4(r)\n"
+	},
 	{"386", "",
 		"#define	get_tls(r)\n"
 		"#define	g(r)	0(GS)\n"
