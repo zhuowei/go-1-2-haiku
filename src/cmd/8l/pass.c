@@ -284,6 +284,8 @@ patch(void)
 					q = appendp(p);
 					q->from = p->from;
 					q->from.type = D_INDIR + p->to.type;
+					if (q->from.offset < 0) //CLUDGE: got -4, -8 instead of 0, 4, so convert back
+						q->from.offset = 0 - (q->from.offset + 4);
 					q->to = p->to;
 					q->as = p->as;
 					p->as = AMOVL;
